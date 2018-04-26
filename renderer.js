@@ -110,7 +110,6 @@ function initialize(options){
 
   document.querySelector('.bars').style.setProperty('--fftSize', options["FFT Size"]);
 
-  //SET THE CSS VARIABLES TO AVERAGE, FFT SIZE, ETC
   audedFFT.stdout.on('data', (data) => {
     try{
       ffts.list = JSON.parse(data);

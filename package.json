@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "d/Deaf & HoH audio visualizer",
   "main": "main.js",
+  "repository" :{
+    "type" : "git",
+    "url" : "https://github.com/Awded/Awded.git"
+  },
   "scripts": {
     "start": "electron ."
   },

@@ -3,7 +3,6 @@ const electron = require('electron');
 const app = electron.app;
 const Tray = electron.Tray;
 const Menu = electron.Menu;
-// Module to create native browser window.
 
 const BrowserWindow = electron.BrowserWindow;
 const nativeImage = electron.nativeImage;
@@ -12,8 +11,6 @@ const path = require('path');
 const url = require('url');
 const fs = require('fs');
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 let optionsWindow;
 let tray;
@@ -47,11 +44,9 @@ function openOptions() {
   optionsWindow.on('closed', function () {
     optionsWindow = null;
   });
-  //optionsWindow.webContents.openDevTools();
 }
 
 function createWindow() {
-  // Create the browser window.
   mainWindow = new BrowserWindow({
     title: "Awded",
     fullscreen: true,
@@ -71,8 +66,6 @@ function createWindow() {
     protocol: 'file:',
     slashes: true
   }));
-
-  // mainWindow.webContents.openDevTools()
 
   mainWindow.on('closed', function () {
     mainWindow = null;

@@ -1,7 +1,3 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
-
 const app = require('electron').remote.app;
 const cp = require('child_process');
 const path = require('path');
@@ -35,7 +31,6 @@ let ffts = {
           this._list[i].value = Math.log10(v) * 100;
         });
       } else {
-        //console.log('here2');
         this._list = [];
         while(bars.left.firstChild){
           bars.left.removeChild(bars.left.firstChild);
@@ -46,7 +41,7 @@ let ffts = {
         this._list = newFfts.map((v, i) => {return new Fft(v, i, i < quarterFftSize?bars.left:bars.right);});
       }
     } else {
-      //throw new TypeError('Fft list must be an array.');
+      throw new TypeError('Fft list must be an array.');
     }
   }
 }
@@ -63,7 +58,6 @@ class Fft {
     this._otherChannel = false;
     this.el = document.createElement('li');
     this.el.style.setProperty('--position', this._index%quarterFftSize);
-    console.log(this);
     parent.appendChild(this.el);
     return this;
   }
@@ -112,7 +106,6 @@ class Fft {
 };
 
 function initialize(options){
-  console.log(options);
   let audedFFT = cp.spawn(path.join(app.getAppPath(), 'AudedFFT.exe').replace('app.asar', 'app.asar.unpacked'), [Math.round(1000 / options["Update Fps"]), (options["FFT Size"]).toString()]);
 
   document.querySelector('.bars').style.setProperty('--fftSize', options["FFT Size"]);

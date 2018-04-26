@@ -106,7 +106,7 @@ class Fft {
 };
 
 function initialize(options){
-  let audedFFT = cp.spawn(path.join(app.getAppPath(), 'AudedFFT.exe').replace('app.asar', 'app.asar.unpacked'), [Math.round(1000 / options["Update Fps"]), (options["FFT Size"]).toString()]);
+  let awdedFFT = cp.spawn(path.join(app.getAppPath(), 'AwdedFFT.exe').replace('app.asar', 'app.asar.unpacked'), [Math.round(1000 / options["Update Fps"]), (options["FFT Size"]).toString()]);
 
   document.querySelector('.bars').style.setProperty('--fftSize', options["FFT Size"]);
 

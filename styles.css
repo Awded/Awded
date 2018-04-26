@@ -1,0 +1,72 @@
+:root{
+  --offset: 0px;
+}
+
+:root, body{
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.bar{
+  transform: translate3d(0,0,0);
+}
+
+.bars{
+  --barHeight: calc(4*100vh/var(--fftSize));
+}
+
+.bars li{
+  position: absolute;
+}
+
+#leftbars, #rightbars{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
+}
+
+#leftbars{
+  left: 0;
+}
+
+#leftbars li{
+  left: 0;
+}
+
+#rightbars{
+  right: 0;
+}
+
+#rightbars li{
+  right: 0;
+}
+
+.bars li{
+  --value-difference: calc(var(--value) - var(--other-value));
+  --average-value-difference: calc(var(--average-value) - var(--other-average-value));
+  --peak-value-difference: calc(var(--peak-value) - var(--other-peak-value));
+  width: calc(var(--peak-value) * 2px);
+  top: calc(var(--position) * var(--barHeight) - var(--offset));
+  height: calc(var(--barHeight));
+  background: rgb(127,127,127);
+  opacity: calc((var(--average-value-difference) / 500 + var(--peak-value)/1000));
+  list-style: none;
+}
+
+label{
+  line-height: 1.25em;
+}
+
+label input, label select{
+  display: block;
+  width: 90%;
+  margin: auto;
+}
+
+label input[type="checkbox"]{
+  display: inline-block;
+  width: auto;
+}

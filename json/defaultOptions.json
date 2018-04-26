@@ -1,0 +1,18 @@
+{
+  "Theme": "Default",
+  "FFT Size": 128,
+  "Update Fps": 30,
+  "Primary Color": "#7f7f7f",
+  "Secondary Color": "#646464",
+  "Tertiary Color": "#c8c8c8",
+  "Bar Direction": 0,
+  "Bar Width": 5,
+  "Bar Height": 5,
+  "Average Length": 5,
+  "Peak Decay": 5,
+  "Bar Y Spread": 0,
+  "Bar X Spread": 100,
+  "Bar Offset X": 50,
+  "Bar Offset Y": 50,
+  "Bar Inverse": "false"
+}

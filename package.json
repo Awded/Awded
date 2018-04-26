@@ -1,0 +1,20 @@
+{
+  "name": "Awded",
+  "version": "0.1.0",
+  "description": "d/Deaf & HoH audio visualizer",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Awded",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "~1.8.2",
+    "underscore": "^1.9.0"
+  },
+  "build": {
+    "asarUnpack": [
+      "**/AwdedFFT.exe"
+    ]
+  }
+}

@@ -41,7 +41,7 @@ function openOptions() {
     slashes: true
   }));
 
-  optionsWindow.on('closed', function () {
+  optionsWindow.on('closed', function() {
     optionsWindow = null;
   });
 }
@@ -67,7 +67,7 @@ function createWindow() {
     slashes: true
   }));
 
-  mainWindow.on('closed', function () {
+  mainWindow.on('closed', function() {
     mainWindow = null;
     app.quit();
   });
@@ -104,11 +104,11 @@ app.on('ready', function(){
   createWindow();
 });
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed', function() {
   app.quit();
 });
 
-app.on('activate', function () {
+app.on('activate', function() {
   if (mainWindow === null) {
     createWindow();
   }

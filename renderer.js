@@ -12,7 +12,7 @@ if(!fs.existsSync(optionsPath)){
 }
 
 let options = require(optionsPath);
-let quarterFftSize = options["FFT Size"]/4;
+let quarterFftSize = options['FFT Size']/4;
 
 let bars = {
   left: document.querySelector('#leftbars'),
@@ -69,7 +69,7 @@ class Fft {
   set value(x){
     this._value = x;
     this._pastValues.push(x);
-    while(this._pastValues.length > options["Average Length"])
+    while(this._pastValues.length > options['Average Length'])
       this._pastValues.shift();
     this.peak = x;
     if(!this._otherChannel){
@@ -95,7 +95,7 @@ class Fft {
   }
 
   set peak(x){
-    this._peak -= options["Peak Decay"];
+    this._peak -= options['Peak Decay'];
     this._peak = Math.max(0, Math.max(this._peak, x));
     return this._peak;
   }
@@ -106,9 +106,24 @@ class Fft {
 };
 
 function initialize(options){
-  let awdedFFT = cp.spawn(path.join(app.getAppPath(), 'AwdedFFT.exe').replace('app.asar', 'app.asar.unpacked'), [Math.round(1000 / options["Update Fps"]), (options["FFT Size"]).toString()]);
+  let awdedFFT = cp.spawn(path.join(app.getAppPath(), 'AwdedFFT.exe').replace('app.asar', 'app.asar.unpacked'), [Math.round(1000 / options['Update Fps']), (options['FFT Size']).toString()]);
+  let body = document.querySelector('body');
 
-  document.querySelector('.bars').style.setProperty('--fftSize', options["FFT Size"]);
+  document.querySelector('.bars').style.setProperty('--fftSize', options['FFT Size']);
+  body.style.setProperty('--theme', options['Theme']);
+  body.style.setProperty('--update-fps', options['Update Fps']);
+  body.style.setProperty('--primary-color', options['Primary Color']);
+  body.style.setProperty('--secondary-color', options['Secondary Color']);
+  body.style.setProperty('--tertiary-color', options['Tertiary Color']);
+  body.style.setProperty('--bar-direction', options['Bar Direction']);
+  body.style.setProperty('--bar-width', options['Bar Width']);
+  body.style.setProperty('--bar-height', options['Bar Height']);
+  body.style.setProperty('--average-length', options['Average Length']);
+  body.style.setProperty('--bar-y-spread', options['Bar Y Spread']);
+  body.style.setProperty('--bar-x-spread', options['Bar X Spread']);
+  body.style.setProperty('--bar-offset-x', options['Bar Offset X']);
+  body.style.setProperty('--bar-offset-y', options['Bar Offset Y']);
+  body.style.setProperty('--bar-inverse', options['Bar Inverse']);
 
   audedFFT.stdout.on('data', (data) => {
     try{

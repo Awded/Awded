@@ -96,6 +96,7 @@ function reinitialize(){
           inputEl.appendChild(selectOption);
         });
       }
+      
       if(inputType.type)
         inputEl.type = inputType.type;
       if(input.values && input.values.min)
@@ -106,6 +107,7 @@ function reinitialize(){
         inputEl.step = input.values.step;
       if(options && options[input.name])
         inputEl.value = options[input.name];
+      
       inputEl.id = input.name.toLowerCase().replace(/\s+/gi,'-');
       inputGroup.appendChild(labelText);
       inputGroup.appendChild(inputEl);
@@ -113,7 +115,7 @@ function reinitialize(){
     });
     optionsEl.appendChild(optionGroup);
   });
-};
+}
 
 function saveChanges(){
   let outboundOptions = defaultOptions;

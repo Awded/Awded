@@ -77,7 +77,7 @@ class Fft {
         this._otherChannel = ffts.list[this._index - quarterFftSize];
       } else {
         this._otherChannel = ffts.list[this._index + quarterFftSize];
-      };
+      }
     }
     this.el.style.setProperty('--value', this._value);
     this.el.style.setProperty('--average-value', this.averageValue);
@@ -101,9 +101,9 @@ class Fft {
   }
 
   get averageValue(){
-    return Math.max(this._pastValues.reduce( (t, v) => t + v ) / this._pastValues.length, .0001);
+    return Math.max(this._pastValues.reduce( (t, v) => t + v ) / this._pastValues.length, 0.0001);
   }
-};
+}
 
 function initialize(options){
   let awdedFFT = cp.spawn(path.join(app.getAppPath(), 'AwdedFFT.exe').replace('app.asar', 'app.asar.unpacked'), [Math.round(1000 / options["Update Fps"]), (options["FFT Size"]).toString()]);

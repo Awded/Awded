@@ -15,7 +15,7 @@ let mainWindow;
 let optionsWindow;
 let tray;
 
-const icon = nativeImage.createFromPath(path.join(__dirname, 'icon.png'),);
+const icon = nativeImage.createFromPath(path.join(__dirname, 'icon.png'));
 const defaultOptionsPath = path.join(__dirname, '/json/defaultOptions.json')
 const optionsPath = path.join(__dirname, '/json/options.json');
 const themesPath = path.join(__dirname, '/themes/');

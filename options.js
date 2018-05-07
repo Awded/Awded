@@ -28,7 +28,7 @@ const optionsSetup = [
   {
     summary: "Bars",
     inputs: [
-      {name: "Bar Direction", type: "range", values: {min: 0, max: 360, step: 15}},
+      {name: "Bar Rotation", type: "range", values: {min: 0, max: 360, step: 15}},
       {name: "Bar Width", type: "range", values: {min: 0, max: 100}},
       {name: "Bar Height", type: "range", values: {min: 0, max: 100}},
       {name: "Average Length", type: "range", values: {min: 1, max: 60}},

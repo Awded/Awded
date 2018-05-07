@@ -6,6 +6,11 @@
   padding: 0;
   margin: 0;
   overflow: hidden;
+  height: 100%;
+}
+
+ul{
+  padding: 0;
 }
 
 .bar{
@@ -13,35 +18,44 @@
 }
 
 .bars{
-  --barHeight: calc(4*100vh/var(--fftSize));
-}
-
-.bars li{
-  position: absolute;
+  --calculated-bar-height: calc(var(--bar-height)*1px);
+  height: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 100% 100%;
 }
 
 #leftbars, #rightbars{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  padding: 0;
-  margin: 0;
+  margin: auto;
+  transform-origin: center;
 }
 
 #leftbars{
-  left: 0;
+  margin-left: 0;
+  transform: rotate(calc(var(--bar-rotation) * 1deg));
 }
 
 #leftbars li{
-  left: 0;
+  margin-right: auto;
+}
+
+.flipped #leftbars li{
+  margin-right: 0;
+  margin-left: auto;
 }
 
 #rightbars{
-  right: 0;
+  margin-right: 0;
+  transform: rotate(calc(var(--bar-rotation) * -1deg));
 }
 
 #rightbars li{
-  right: 0;
+  margin-left: auto;
+}
+
+.flipped #rightbars li{
+  margin-left: 0;
+  margin-right: auto;
 }
 
 .bars li{
@@ -49,11 +63,12 @@
   --average-value-difference: calc(var(--average-value) - var(--other-average-value));
   --peak-value-difference: calc(var(--peak-value) - var(--other-peak-value));
   width: calc(var(--peak-value) * 2px);
-  top: calc(var(--position) * var(--barHeight) - var(--offset));
-  height: calc(var(--barHeight));
+  margin-top: calc(var(--offset) * 1px);
+  height: calc(var(--calculated-bar-height));
   background: rgb(127,127,127);
   opacity: calc((var(--average-value-difference) / 500 + var(--peak-value)/1000));
   list-style: none;
+  position: relative;
 }
 
 label{

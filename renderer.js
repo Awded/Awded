@@ -115,7 +115,7 @@ function initialize(options){
   body.style.setProperty('--primary-color', options['Primary Color']);
   body.style.setProperty('--secondary-color', options['Secondary Color']);
   body.style.setProperty('--tertiary-color', options['Tertiary Color']);
-  body.style.setProperty('--bar-direction', options['Bar Direction']);
+  body.style.setProperty('--bar-rotation', options['Bar Rotation']);
   body.style.setProperty('--bar-width', options['Bar Width']);
   body.style.setProperty('--bar-height', options['Bar Height']);
   body.style.setProperty('--average-length', options['Average Length']);

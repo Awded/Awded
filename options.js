@@ -121,7 +121,7 @@ function saveChanges(){
   let outboundOptions = defaultOptions;
   for(let option in outboundOptions){
     var optionEl = document.getElementById(option.toLowerCase().replace(/\s+/gi,'-'));
-    outboundOptions[option] = optionEl.checked || optionEl.value;
+    outboundOptions[option] = option == "Bar Inverse" ?  optionEl.checked : optionEl.value;
   }
 
   let jsonOptions = JSON.stringify(outboundOptions);

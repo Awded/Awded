@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . Awded --overwrite"
+    "build": "electron-packager . Awded --overwrite --icon=icon.ico"
   },
   "author": "Awded",
   "license": "MIT",

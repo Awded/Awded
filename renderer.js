@@ -108,7 +108,9 @@ class Fft {
 function initialize(options){
   let awdedFFT = cp.spawn(path.join(app.getAppPath(), 'AwdedFFT.exe').replace('app.asar', 'app.asar.unpacked'), [Math.round(1000 / options['Update Fps']), (options['FFT Size']).toString()]);
   let body = document.querySelector('body');
-
+  let head = document.querySelector('head');
+  let selectedThemePath = Path.join(themesPath, options['Theme']);
+  
   document.querySelector('.bars').style.setProperty('--fftSize', options['FFT Size']);
   body.style.setProperty('--theme', options['Theme']);
   body.style.setProperty('--update-fps', options['Update Fps']);
@@ -124,7 +126,18 @@ function initialize(options){
   body.style.setProperty('--bar-offset-x', options['Bar Offset X']);
   body.style.setProperty('--bar-offset-y', options['Bar Offset Y']);
   body.style.setProperty('--bar-inverse', options['Bar Inverse']);
-
+  
+  if(options['Theme'] !== 'Default'){
+    let themeStyles = document.createElement('link');
+    themeStyles.rel = 'stylesheet';
+    themeStyles.type = 'text/css';
+    themeStyles.href = './themes/' + options['Theme'] + '/styles.css';
+    
+    let themeScript = document.createElement('script');
+    themeScript.src = './themes/' + options['Theme'] + '/main.js';
+    head.appendChild(themeStyles);
+  }
+  
   audedFFT.stdout.on('data', (data) => {
     try{
       ffts.list = JSON.parse(data);

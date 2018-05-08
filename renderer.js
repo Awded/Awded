@@ -125,7 +125,7 @@ function initialize(options){
   body.style.setProperty('--bar-x-spread', options['Bar X Spread']);
   body.style.setProperty('--bar-offset-x', options['Bar Offset X']);
   body.style.setProperty('--bar-offset-y', options['Bar Offset Y']);
-  body.style.setProperty('--bar-inverse', options['Bar Inverse']);
+  body.style.setProperty('--bar-inverse', options['Bar Inverse'] == "false"?1:-1);
 
   if(options['Theme'] !== 'Default'){
     let themeStyles = document.createElement('link');

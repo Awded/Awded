@@ -1,7 +1,3 @@
-:root{
-  --offset: 0px;
-}
-
 :root, body{
   padding: 0;
   margin: 0;
@@ -35,44 +31,39 @@ ul{
   margin: auto;
   transform-origin: center;
   width: 50%;
+  position: relative;
+  top: calc(var(--bar-offset-y) * 1%);
 }
 
 #leftbars{
   margin-left: 0;
-  transform: rotate(calc(var(--bar-rotation) * 1deg));
+  left: calc(var(--bar-x-spread) * 1% + var(--bar-offset-x) * -1%);
+  transform: rotate(calc(var(--bar-rotation) * 1deg)) scaleY(var(--bar-inverse));
 }
 
 #leftbars li{
   margin-right: auto;
 }
 
-.flipped #leftbars li{
-  margin-right: 0;
-  margin-left: auto;
-}
-
 #rightbars{
   margin-right: 0;
-  transform: rotate(calc(var(--bar-rotation) * -1deg));
+  right: calc(var(--bar-x-spread) * 1% + var(--bar-offset-x) * 1%);
+  transform: rotate(calc(var(--bar-rotation) * -1deg)) scaleY(var(--bar-inverse));
+  direction: rtl;
 }
 
 #rightbars li{
   margin-left: auto;
 }
 
-.flipped #rightbars li{
-  margin-left: 0;
-  margin-right: auto;
-}
-
 .bars li{
   --value-difference: calc(var(--value) - var(--other-value));
   --average-value-difference: calc(var(--average-value) - var(--other-average-value));
   --peak-value-difference: calc(var(--peak-value) - var(--other-peak-value));
-  width: calc(var(--peak-value) * 2px);
-  margin-top: calc(var(--offset) * 1px);
+  width: calc(var(--peak-value) * var(--bar-width) * .1px);
+  margin-top: calc(var(--bar-y-spread) * 1px);
   height: calc(var(--calculated-bar-height));
-  background: rgb(127,127,127);
+  background: var(--primary-color);
   opacity: calc((var(--average-value-difference) / 500 + var(--peak-value)/1000));
   list-style: none;
   position: relative;

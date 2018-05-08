@@ -13,7 +13,7 @@ const optionsSetup = [
     summary: "Main",
     inputs: [
       {name: "Theme", type: "select", values: {options: loadThemes()}},
-      {name: "FFT Size", type: "select", values: {options: [64, 128, 256, 512, 1024, 2048, 4096]}},
+      {name: "FFT Size", type: "select", values: {options: [16, 32, 64, 128, 256, 512, 1024, 2048, 4096]}},
       {name: "Update Fps", type: "number", values: {min: 1, max: 144}}
     ]
   },
@@ -32,11 +32,11 @@ const optionsSetup = [
       {name: "Bar Width", type: "range", values: {min: 0, max: 100}},
       {name: "Bar Height", type: "range", values: {min: 0, max: 100}},
       {name: "Average Length", type: "range", values: {min: 1, max: 60}},
-      {name: "Peak Decay", type: "range", values: {min: 1, max: 100}},
-      {name: "Bar Y Spread", type: "range", values: {min: -100, max: 100}},
+      {name: "Peak Decay", type: "range", values: {min: 1, max: 20, step: .1}},
+      {name: "Bar Y Spread", type: "range", values: {min: -100, max: 100, step: 5}},
       {name: "Bar X Spread", type: "range", values: {min: 0, max: 100}},
-      {name: "Bar Offset X", type: "range", values: {min: 0, max: 100}},
-      {name: "Bar Offset Y", type: "range", values: {min: 0, max: 100}},
+      {name: "Bar Offset X", type: "range", values: {min: -100, max: 100, step: 5}},
+      {name: "Bar Offset Y", type: "range", values: {min: -100, max: 100}},
       {name: "Bar Inverse", type: "checkbox"}
     ]
   }
@@ -121,7 +121,7 @@ function saveChanges(){
   let outboundOptions = defaultOptions;
   for(let option in outboundOptions){
     var optionEl = document.getElementById(option.toLowerCase().replace(/\s+/gi,'-'));
-    outboundOptions[option] = optionEl.value;
+    outboundOptions[option] = optionEl.checked || optionEl.value;
   }
 
   let jsonOptions = JSON.stringify(outboundOptions);

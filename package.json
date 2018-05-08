@@ -9,18 +9,22 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager ./ Awded --overwrite"
+    "build": "electron-packager.cmd ./ Awded --overwrite"
   },
   "author": "Awded",
   "license": "MIT",
   "devDependencies": {
     "electron": "^1.8.6",
-    "packager": "0.0.4",
-    "underscore": "^1.9.0"
+    "packager": "0.0.4"
   },
   "build": {
     "asarUnpack": [
-      "**/AwdedFFT.exe"
+      "**/AwdedFFT.exe",
+      "/themes/*",
+      "/json/*"
     ]
+  },
+  "dependencies": {
+    "underscore": "^1.9.0"
   }
 }

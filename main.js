@@ -19,7 +19,6 @@ const icon = nativeImage.createFromPath(path.join(__dirname, 'icon.png'));
 const defaultOptionsPath = path.join(__dirname, '/json/defaultOptions.json')
 const optionsPath = path.join(__dirname, '/json/options.json');
 const themesPath = path.join(__dirname, '/themes/');
-//require('electron-reload')(__dirname);
 
 function openOptions() {
   if(optionsWindow){
@@ -32,7 +31,6 @@ function openOptions() {
     width: 300,
     height: 400
   });
-
   optionsWindow.setMenu(null);
 
   optionsWindow.loadURL(url.format({

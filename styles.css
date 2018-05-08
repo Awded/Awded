@@ -7,10 +7,16 @@
   margin: 0;
   overflow: hidden;
   height: 100%;
+  width: 100%;
 }
 
 ul{
   padding: 0;
+}
+
+#options{
+  overflow-y: scroll;
+  height: 100%;
 }
 
 .bar{
@@ -28,6 +34,7 @@ ul{
 #leftbars, #rightbars{
   margin: auto;
   transform-origin: center;
+  width: 50%;
 }
 
 #leftbars{

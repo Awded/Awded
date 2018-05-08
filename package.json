@@ -3,17 +3,19 @@
   "version": "0.1.0",
   "description": "d/Deaf & HoH audio visualizer",
   "main": "main.js",
-  "repository" :{
-    "type" : "git",
-    "url" : "https://github.com/Awded/Awded.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Awded/Awded.git"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager ./ Awded --overwrite"
   },
   "author": "Awded",
   "license": "MIT",
   "devDependencies": {
-    "electron": "~1.8.2",
+    "electron": "^1.8.6",
+    "packager": "0.0.4",
     "underscore": "^1.9.0"
   },
   "build": {

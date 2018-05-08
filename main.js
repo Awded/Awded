@@ -57,9 +57,6 @@ function createWindow() {
     thickFrame: false,
     icon: icon
   });
-
-  mainWindow.openDevTools({detach: true})
-
   mainWindow.setIgnoreMouseEvents(true, {forward: false});
   mainWindow.setFocusable(false);
 

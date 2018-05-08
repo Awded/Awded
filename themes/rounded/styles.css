@@ -1,0 +1,3 @@
+.bars li{
+  border-radius: var(--calculated-bar-height);
+}

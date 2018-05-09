@@ -106,7 +106,7 @@ class Fft {
 }
 
 function initialize(options){
-  let awdedFFT = cp.spawn(path.join(app.getAppPath(), 'AwdedFFT.exe').replace('app.asar', 'app.asar.unpacked'), [Math.round(1000 / options['Update Fps']), (options['FFT Size']).toString()]);
+  let awdedFFT = cp.spawn(path.join(app.getAppPath(), 'AwdedFFT.exe').replace('app.asar', 'app.asar.unpacked'), [Math.round(1000 / options['Update Fps']), (options['FFT Size'], '10').toString()]);
   let body = document.querySelector('body');
   let head = document.querySelector('head');
   let selectedThemePath = path.join(themesPath, options['Theme']);

@@ -1,3 +1,5 @@
+const {ipcRenderer} = require('electron');
+
 const fs = require('fs');
 const _ = require('underscore');
 const path = require('path');
@@ -67,7 +69,6 @@ const inputTypes = {
 
 reinitialize();
 
-
 function reinitialize(){
   let options = require(optionsPath);
   let optionsEl = document.querySelector("#options");
@@ -84,7 +85,9 @@ function reinitialize(){
       let inputType = inputTypes[input.type];
       let inputEl = document.createElement(inputType.tag);
       let labelText = document.createTextNode(input.name);
-      inputEl.addEventListener('change', saveChangesDebounced);
+      inputEl.addEventListener('change', (x)=>{
+        ipcRenderer.send('options', getOptions());
+      });//saveChangesDebounced);
       if(!inputType)
         return false;
       if(input.values && inputType.tag == 'select' && Array.isArray(input.values.options)){
@@ -118,11 +121,7 @@ function reinitialize(){
 }
 
 function saveChanges(){
-  let outboundOptions = defaultOptions;
-  for(let option in outboundOptions){
-    var optionEl = document.getElementById(option.toLowerCase().replace(/\s+/gi,'-'));
-    outboundOptions[option] = option == "Bar Inverse" ?  optionEl.checked : optionEl.value;
-  }
+  let outboundOptions = getOptions();
 
   let jsonOptions = JSON.stringify(outboundOptions);
   if(jsonOptions){
@@ -133,6 +132,16 @@ function saveChanges(){
   } else {
     logError('Failed to save options.');
   }
+}
+
+function getOptions(){
+  let outboundOptions = defaultOptions;
+  for(let option in outboundOptions){
+    var optionEl = document.getElementById(option.toLowerCase().replace(/\s+/gi,'-'));
+    outboundOptions[option] = option == "Bar Inverse" ?  optionEl.checked : optionEl.value;
+  }
+
+  return outboundOptions;
 }
 
 fs.readFile(optionsPath, (err, data) => {

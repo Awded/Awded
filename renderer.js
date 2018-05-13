@@ -1,4 +1,6 @@
-const app = require('electron').remote.app;
+const electron = require('electron');
+const app = electron.remote.app;
+const ipcRenderer = electron.ipcRenderer;
 const cp = require('child_process');
 const path = require('path');
 const fs = require('fs');

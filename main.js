@@ -1,4 +1,5 @@
 const electron = require('electron');
+const ipcMain = electron.ipcMain;
 // Module to control application life.
 const app = electron.app;
 const Tray = electron.Tray;
@@ -39,6 +40,10 @@ function openOptions() {
     slashes: true
   }));
 
+  ipcMain.on('options', (e, v)=>{
+    ipcMain.send('options', v);
+  });
+
   optionsWindow.on('closed', function() {
     optionsWindow = null;
   });
@@ -49,12 +54,14 @@ function createWindow() {
     title: "Awded",
     fullscreen: true,
     alwaysOnTop: true,
-    transparent: true,
+    transparent: false,
     titleBarStyle: 'hidden',
     frame: false,
     thickFrame: false,
     icon: icon
   });
+
+  mainWindow.openDevTools({detach: true});
   mainWindow.setIgnoreMouseEvents(true, {forward: false});
   mainWindow.setFocusable(false);
 

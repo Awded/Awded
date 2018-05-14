@@ -3,46 +3,14 @@ const {ipcRenderer} = require('electron');
 const fs = require('fs');
 const _ = require('underscore');
 const path = require('path');
-const saveChangesDebounced = _.debounce(saveChanges);
 
 const defaultOptions = require('./json/defaultOptions.json');
 const defaultOptionsPath = path.join(__dirname, '/json/defaultOptions.json')
+const optionsSetupPath = path.join(__dirname, '/json/optionsSetup.json');
 const optionsPath = path.join(__dirname, '/json/options.json');
 const themesPath = path.join(__dirname, '/themes/');
 
-const optionsSetup = [
-  {
-    summary: "Main",
-    inputs: [
-      {name: "Theme", type: "select", values: {options: loadThemes()}},
-      {name: "FFT Size", type: "select", values: {options: [16, 32, 64, 128, 256, 512, 1024, 2048, 4096]}},
-      {name: "Update Fps", type: "number", values: {min: 1, max: 144}}
-    ]
-  },
-  {
-    summary: "Colors",
-    inputs: [
-      {name: "Primary Color", type: "color"},
-      {name: "Secondary Color", type: "color"},
-      {name: "Tertiary Color", type: "color"}
-    ]
-  },
-  {
-    summary: "Bars",
-    inputs: [
-      {name: "Bar Rotation", type: "range", values: {min: 0, max: 360, step: 15}},
-      {name: "Bar Width", type: "range", values: {min: 0, max: 100}},
-      {name: "Bar Height", type: "range", values: {min: 0, max: 100}},
-      {name: "Average Length", type: "range", values: {min: 1, max: 60}},
-      {name: "Peak Decay", type: "range", values: {min: 1, max: 20, step: .1}},
-      {name: "Bar Y Spread", type: "range", values: {min: -100, max: 100, step: 5}},
-      {name: "Bar X Spread", type: "range", values: {min: 0, max: 100}},
-      {name: "Bar Offset X", type: "range", values: {min: -100, max: 100, step: 5}},
-      {name: "Bar Offset Y", type: "range", values: {min: -100, max: 100}},
-      {name: "Bar Inverse", type: "checkbox"}
-    ]
-  }
-];
+const optionsSetup = require(optionsSetupPath);
 
 const inputTypes = {
   'number': {
@@ -67,37 +35,54 @@ const inputTypes = {
   }
 };
 
+const optionsFunctions = {
+  loadThemes(){
+    let themes = fs.readdirSync(themesPath).filter((x)=>{return x.indexOf('.') == -1})
+    themes.push('Default');
+    return themes;
+  }
+};
+
 reinitialize();
 
 function reinitialize(){
   let options = require(optionsPath);
-  let optionsEl = document.querySelector("#options");
+  let optionsEl = document.querySelector('#options');
   while(optionsEl.firstChild){
     optionsEl.removeChild(optionsEl.firstChild);
   }
   optionsSetup.forEach((option) => {
-    let optionGroup = document.createElement("details");
-    let summary = document.createElement("summary");
+    let optionGroup = document.createElement('details');
+    let summary = document.createElement('summary');
     summary.appendChild(document.createTextNode(option.summary));
     optionGroup.appendChild(summary);
     option.inputs.forEach((input) => {
-      let inputGroup = document.createElement("label");
+      let inputGroup = document.createElement('label');
       let inputType = inputTypes[input.type];
       let inputEl = document.createElement(inputType.tag);
       let labelText = document.createTextNode(input.name);
       inputEl.addEventListener('input', (x)=>{
         ipcRenderer.send('options', getOptions());
-      });//saveChangesDebounced);
-      if(!inputType)
+      });
+      if(!inputType){
         return false;
-      if(input.values && inputType.tag == 'select' && Array.isArray(input.values.options)){
-        input.values.options.forEach((x)=>{
-          let selectOption = document.createElement('option');
-          let selectOptionText = document.createTextNode(x);
-          selectOption.value = x;
-          selectOption.appendChild(selectOptionText);
-          inputEl.appendChild(selectOption);
-        });
+      }
+      if(input.values && inputType.tag == 'select'){
+        if(input.values.optionsFunction){
+          const optionsFunction = optionsFunctions[input.values.optionsFunction];
+          if(optionsFunction){
+            input.values.options = optionsFunction();
+          }
+        }
+        if(Array.isArray(input.values.options)){
+          input.values.options.forEach((x)=>{
+            let selectOption = document.createElement('option');
+            let selectOptionText = document.createTextNode(x);
+            selectOption.value = x;
+            selectOption.appendChild(selectOptionText);
+            inputEl.appendChild(selectOption);
+          });
+        }
       }
 
       if(inputType.type)
@@ -118,6 +103,18 @@ function reinitialize(){
     });
     optionsEl.appendChild(optionGroup);
   });
+  let save = document.createElement('button');
+  let cancel = document.createElement('button');
+  let saveText = document.createTextNode('Save');
+  let cancelText = document.createTextNode('Cancel');
+
+  save.id = 'save';
+  cancel.id = 'cancel';
+
+  save.appendChild(saveText);
+  cancel.appendChild(cancelText);
+  optionsEl.appendChild(cancel);
+  optionsEl.appendChild(save);
 }
 
 function saveChanges(){
@@ -138,7 +135,7 @@ function getOptions(){
   let outboundOptions = defaultOptions;
   for(let option in outboundOptions){
     var optionEl = document.getElementById(option.toLowerCase().replace(/\s+/gi,'-'));
-    outboundOptions[option] = option == "Bar Inverse" ?  optionEl.checked : optionEl.value;
+    outboundOptions[option] = option == 'Bar Inverse' ?  optionEl.checked : optionEl.value;
   }
 
   return outboundOptions;
@@ -156,10 +153,4 @@ fs.readFile(optionsPath, (err, data) => {
 
 function logError(e){
   alert(e);
-}
-
-function loadThemes(){
-  let themes = fs.readdirSync(themesPath).filter((x)=>{return x.indexOf('.') == -1})
-  themes.push('Default');
-  return themes;
 }

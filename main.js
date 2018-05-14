@@ -32,6 +32,7 @@ function openOptions() {
     width: 300,
     height: 400
   });
+  optionsWindow.openDevTools({detach: true});
   optionsWindow.setMenu(null);
 
   optionsWindow.loadURL(url.format({
@@ -81,10 +82,6 @@ function createWindow() {
 if(!fs.existsSync(optionsPath)){
   fs.createReadStream(defaultOptionsPath).pipe(fs.createWriteStream(optionsPath));
 }
-
-fs.watch(optionsPath, reinitialize);
-fs.watch(themesPath, reinitialize);
-
 
 function reinitialize(){
   if(mainWindow){

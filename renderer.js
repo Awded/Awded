@@ -56,7 +56,7 @@ ipcRenderer.on('options', (e, v)=>{
   setOptions(v);
 });
 
-function setOptions(options){
+function setOptions(newOptions){
   let selectedThemePath = path.join(themesPath, newOptions['Theme']);
   let body = document.querySelector('body');
   let head = document.querySelector('head');

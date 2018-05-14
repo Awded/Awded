@@ -50,6 +50,10 @@ let ffts = {
 
 initialize(options);
 
+ipcRenderer.on('options', (e, v)=>{
+  console.log(v);
+});
+
 class Fft {
   constructor(value, i, parent){
     this._pastValues = [0,0,0,0,0];

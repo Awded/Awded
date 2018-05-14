@@ -41,7 +41,7 @@ function openOptions() {
   }));
 
   ipcMain.on('options', (e, v)=>{
-    ipcMain.send('options', v);
+    mainWindow.send('options', v);
   });
 
   optionsWindow.on('closed', function() {
@@ -54,7 +54,7 @@ function createWindow() {
     title: "Awded",
     fullscreen: true,
     alwaysOnTop: true,
-    transparent: false,
+    transparent: true,
     titleBarStyle: 'hidden',
     frame: false,
     thickFrame: false,

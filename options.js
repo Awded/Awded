@@ -85,7 +85,7 @@ function reinitialize(){
       let inputType = inputTypes[input.type];
       let inputEl = document.createElement(inputType.tag);
       let labelText = document.createTextNode(input.name);
-      inputEl.addEventListener('change', (x)=>{
+      inputEl.addEventListener('input', (x)=>{
         ipcRenderer.send('options', getOptions());
       });//saveChangesDebounced);
       if(!inputType)

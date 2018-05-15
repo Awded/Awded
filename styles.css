@@ -13,6 +13,18 @@ ul{
 #options{
   overflow-y: scroll;
   height: 100%;
+  box-sizing: border-box;
+  padding-bottom: 25px;
+}
+
+#optionsButtonGroup{
+  position: absolute;
+  right: 20px;
+  bottom: 2px;
+}
+
+#optionsButtonGroup #save{
+  margin-right: 10px;
 }
 
 .bar{
@@ -71,6 +83,7 @@ ul{
 
 label{
   line-height: 1.25em;
+  display: block;
 }
 
 label input, label select{
@@ -79,7 +92,30 @@ label input, label select{
   margin: auto;
 }
 
+label span{
+  display: block;
+}
+
+label input[type="range"], label .range-input{
+  vertical-align: middle;
+  display: inline-block;
+  text-align: right;
+}
+
+label input[type="range"]{
+  width: 65%;
+  margin-left: 5%;
+}
+
+label .range-input{
+  width: 20%;
+  margin-right: 5%;
+  float: right;
+}
+
 label input[type="checkbox"]{
   display: inline-block;
-  width: auto;
+  width: 15px;
+  height: 15px;
+  margin-left: 5%;
 }

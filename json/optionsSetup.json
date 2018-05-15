@@ -1,0 +1,33 @@
+[
+  {
+    "summary": "Main",
+    "inputs": [
+      {"name": "Theme", "type": "select", "values": {"optionsFunction": "loadThemes"}},
+      {"name": "FFT Size", "type": "select", "values": {"options": [16, 32, 64, 128, 256, 512, 1024, 2048, 4096]}},
+      {"name": "Update Fps", "type": "number", "values": {"min": 1, "max": 144}}
+    ]
+  },
+  {
+    "summary": "Colors",
+    "inputs": [
+      {"name": "Primary Color", "type": "color"},
+      {"name": "Secondary Color", "type": "color"},
+      {"name": "Tertiary Color", "type": "color"}
+    ]
+  },
+  {
+    "summary": "Bars",
+    "inputs": [
+      {"name": "Bar Rotation", "type": "range", "values": {"min": 0, "max": 360, "step": 15}},
+      {"name": "Bar Width", "type": "range", "values": {"min": 0, "max": 100}},
+      {"name": "Bar Height", "type": "range", "values": {"min": 0, "max": 100}},
+      {"name": "Average Length", "type": "range", "values": {"min": 1, "max": 60}},
+      {"name": "Peak Decay", "type": "range", "values": {"min": 1, "max": 20, "step": 0.1}},
+      {"name": "Bar Y Spread", "type": "range", "values": {"min": -100, "max": 100, "step": 5}},
+      {"name": "Bar X Spread", "type": "range", "values": {"min": 0, "max": 100}},
+      {"name": "Bar Offset X", "type": "range", "values": {"min": -100, "max": 100, "step": 5}},
+      {"name": "Bar Offset Y", "type": "range", "values": {"min": -100, "max": 100}},
+      {"name": "Bar Inverse", "type": "checkbox"}
+    ]
+  }
+]

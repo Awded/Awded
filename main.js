@@ -1,4 +1,5 @@
 const electron = require('electron');
+const ipcMain = electron.ipcMain;
 // Module to control application life.
 const app = electron.app;
 const Tray = electron.Tray;
@@ -28,9 +29,14 @@ function openOptions() {
     icon: icon,
     title: "Awded - Options",
     resizable: false,
-    width: 300,
-    height: 400
+    width: 320,
+    height: 450
   });
+
+  optionsWindow.on('close', (x)=>{
+    mainWindow.send('options', require(optionsPath));
+  });
+
   optionsWindow.setMenu(null);
 
   optionsWindow.loadURL(url.format({
@@ -38,6 +44,10 @@ function openOptions() {
     protocol: 'file:',
     slashes: true
   }));
+
+  ipcMain.on('options', (e, v)=>{
+    mainWindow.send('options', v);
+  });
 
   optionsWindow.on('closed', function() {
     optionsWindow = null;
@@ -55,6 +65,7 @@ function createWindow() {
     thickFrame: false,
     icon: icon
   });
+
   mainWindow.setIgnoreMouseEvents(true, {forward: false});
   mainWindow.setFocusable(false);
 
@@ -74,10 +85,6 @@ function createWindow() {
 if(!fs.existsSync(optionsPath)){
   fs.createReadStream(defaultOptionsPath).pipe(fs.createWriteStream(optionsPath));
 }
-
-fs.watch(optionsPath, reinitialize);
-fs.watch(themesPath, reinitialize);
-
 
 function reinitialize(){
   if(mainWindow){

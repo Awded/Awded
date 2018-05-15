@@ -60,7 +60,9 @@ function reinitialize(){
       let inputGroup = document.createElement('label');
       let inputType = inputTypes[input.type];
       let inputEl = document.createElement(inputType.tag);
+      let label = document.createElement('span');
       let labelText = document.createTextNode(input.name);
+      inputEl.id = input.name.toLowerCase().replace(/\s+/gi,'-');
       inputEl.addEventListener('input', (x)=>{
         ipcRenderer.send('options', getOptions());
       });
@@ -84,22 +86,38 @@ function reinitialize(){
           });
         }
       }
-
-      if(inputType.type)
+      if(inputType.type){
         inputEl.type = inputType.type;
-      if(input.values && input.values.min)
+      }
+      if(input.values && input.values.min){
         inputEl.min = input.values.min;
-      if(input.values && input.values.max)
+      }
+      if(input.values && input.values.max){
         inputEl.max = input.values.max;
-      if(input.values && input.values.step)
+      }
+      if(input.values && input.values.step){
         inputEl.step = input.values.step;
-      if(options && options[input.name])
+      }
+      if(options && options[input.name]){
         inputEl.value = options[input.name];
-
-      inputEl.id = input.name.toLowerCase().replace(/\s+/gi,'-');
-      inputGroup.appendChild(labelText);
+      }
+      label.appendChild(labelText);
+      inputGroup.appendChild(label);
       inputGroup.appendChild(inputEl);
       optionGroup.appendChild(inputGroup);
+      if(input.values && input.type == 'range'){
+        let rangeNumberEl = document.createElement('input');
+        rangeNumberEl.value = inputEl.value;
+        rangeNumberEl.id = inputEl.id + '-input';
+        rangeNumberEl.classList.add('range-input');
+        inputEl.addEventListener('input', (x)=>{
+          rangeNumberEl.value = inputEl.value;
+        });
+        rangeNumberEl.addEventListener('input', (x)=>{
+          inputEl.value = rangeNumberEl.value;
+        });
+        inputGroup.appendChild(rangeNumberEl);
+      }
     });
     optionsEl.appendChild(optionGroup);
   });
@@ -107,14 +125,22 @@ function reinitialize(){
   let cancel = document.createElement('button');
   let saveText = document.createTextNode('Save');
   let cancelText = document.createTextNode('Cancel');
-
+  let buttonGroup = document.createElement('div');
   save.id = 'save';
   cancel.id = 'cancel';
 
   save.appendChild(saveText);
   cancel.appendChild(cancelText);
-  optionsEl.appendChild(cancel);
-  optionsEl.appendChild(save);
+  buttonGroup.id = 'optionsButtonGroup';
+  buttonGroup.appendChild(save);
+  buttonGroup.appendChild(cancel);
+  save.addEventListener('click', x => {
+
+  });
+  cancel.addEventListener('click', x => {
+
+  });
+  optionsEl.parentNode.insertBefore(buttonGroup, optionsEl.nextSibling);
 }
 
 function saveChanges(){

@@ -29,8 +29,8 @@ function openOptions() {
     icon: icon,
     title: "Awded - Options",
     resizable: false,
-    width: 300,
-    height: 400
+    width: 320,
+    height: 450
   });
   optionsWindow.openDevTools({detach: true});
   optionsWindow.setMenu(null);

@@ -32,7 +32,11 @@ function openOptions() {
     width: 320,
     height: 450
   });
-  optionsWindow.openDevTools({detach: true});
+
+  optionsWindow.on('close', (x)=>{
+    mainWindow.send('options', require(optionsPath));
+  });
+
   optionsWindow.setMenu(null);
 
   optionsWindow.loadURL(url.format({
@@ -62,7 +66,6 @@ function createWindow() {
     icon: icon
   });
 
-  mainWindow.openDevTools({detach: true});
   mainWindow.setIgnoreMouseEvents(true, {forward: false});
   mainWindow.setFocusable(false);
 

@@ -121,27 +121,32 @@ function reinitialize(){
     });
     optionsEl.appendChild(optionGroup);
   });
+
   let save = document.createElement('button');
-  let cancel = document.createElement('button');
+  let revert = document.createElement('button');
   let saveText = document.createTextNode('Save');
-  let cancelText = document.createTextNode('Cancel');
+  let revertText = document.createTextNode('Revert');
   let buttonGroup = document.createElement('div');
   save.id = 'save';
-  cancel.id = 'cancel';
-
-  save.appendChild(saveText);
-  cancel.appendChild(cancelText);
-  buttonGroup.id = 'optionsButtonGroup';
-  buttonGroup.appendChild(save);
-  buttonGroup.appendChild(cancel);
-  save.addEventListener('click', x => {
-
-  });
-  cancel.addEventListener('click', x => {
-
-  });
-  optionsEl.parentNode.insertBefore(buttonGroup, optionsEl.nextSibling);
+  revert.id = 'revert';
+  if(!document.querySelector('#optionsButtonGroup')){
+    save.appendChild(saveText);
+    revert.appendChild(revertText);
+    buttonGroup.id = 'optionsButtonGroup';
+    buttonGroup.appendChild(save);
+    buttonGroup.appendChild(revert);
+    save.addEventListener('click', x => {
+      saveChanges();
+    });
+    revert.addEventListener('click', x => {
+      reinitialize();
+    });
+    optionsEl.parentNode.insertBefore(buttonGroup, optionsEl.nextSibling);
+  }
+  ipcRenderer.send('options', getOptions());
 }
+
+app
 
 function saveChanges(){
   let outboundOptions = getOptions();

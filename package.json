@@ -21,6 +21,5 @@
     "asarUnpack": ["**/AwdedFFT.exe", "/themes/*", "/json/*"]
   },
   "dependencies": {
-    "underscore": "^1.9.0"
   }
 }

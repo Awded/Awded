@@ -5,9 +5,11 @@
 #leftbars {
   display: none;
 }
+
 body .bars {
   grid-template-columns: 100%;
 }
+
 body #rightbars {
   width: 100%;
   right: calc(var(--bar-offset-x) * 1%);

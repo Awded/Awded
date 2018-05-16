@@ -1,6 +1,6 @@
 {
   "name": "Awded",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "d/Deaf & HoH audio visualizer",
   "main": "main.js",
   "repository": {
@@ -18,13 +18,7 @@
     "packager": "0.0.4"
   },
   "build": {
-    "asarUnpack": [
-      "**/AwdedFFT.exe",
-      "/themes/*",
-      "/json/*"
-    ]
+    "asarUnpack": ["**/AwdedFFT.exe", "/themes/*", "/json/*"]
   },
-  "dependencies": {
-    "underscore": "^1.9.0"
-  }
+  "dependencies": {}
 }

@@ -1,4 +1,5 @@
-:root, body{
+:root,
+body {
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -6,114 +7,122 @@
   width: 100%;
 }
 
-ul{
+ul {
   padding: 0;
 }
 
-#options{
+#options {
   overflow-y: scroll;
   height: 100%;
   box-sizing: border-box;
   padding-bottom: 25px;
 }
 
-#optionsButtonGroup{
+#optionsButtonGroup {
   position: absolute;
   right: 20px;
   bottom: 2px;
 }
 
-#optionsButtonGroup #save{
+#optionsButtonGroup #save {
   margin-right: 10px;
 }
 
-.bar{
-  transform: translate3d(0,0,0);
+.bar {
+  transform: translate3d(0, 0, 0);
 }
 
-.bars{
-  --calculated-bar-height: calc(var(--bar-height)*1px);
+.bars {
+  --calculated-bar-height: calc(var(--bar-height) * 1px);
   height: 100%;
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: 100% 100%;
 }
 
-#leftbars, #rightbars{
+#leftbars,
+#rightbars {
   margin: auto;
   transform-origin: center;
   width: 50%;
   position: relative;
-  top: calc(var(--bar-offset-y) * 1%);
+  top: calc(var(--bar-offset-y) * 1px);
 }
 
-#leftbars{
+#leftbars {
   margin-left: 0;
-  left: calc(var(--bar-x-spread) * 1% + var(--bar-offset-x) * -1%);
+  left: calc(var(--bar-x-spread) * 1px + var(--bar-offset-x) * -1px);
   transform: rotate(calc(var(--bar-rotation) * 1deg)) scaleY(var(--bar-inverse));
 }
 
-#leftbars li{
+#leftbars li {
   margin-right: auto;
 }
 
-#rightbars{
+#rightbars {
   margin-right: 0;
-  right: calc(var(--bar-x-spread) * 1% + var(--bar-offset-x) * 1%);
-  transform: rotate(calc(var(--bar-rotation) * -1deg)) scaleY(var(--bar-inverse));
+  right: calc(var(--bar-x-spread) * 1px + var(--bar-offset-x) * 1px);
+  transform: rotate(calc(var(--bar-rotation) * -1deg))
+    scaleY(var(--bar-inverse));
   direction: rtl;
 }
 
-#rightbars li{
+#rightbars li {
   margin-left: auto;
 }
 
-.bars li{
+.bars li {
   --value-difference: calc(var(--value) - var(--other-value));
-  --average-value-difference: calc(var(--average-value) - var(--other-average-value));
+  --average-value-difference: calc(
+    var(--average-value) - var(--other-average-value)
+  );
   --peak-value-difference: calc(var(--peak-value) - var(--other-peak-value));
-  width: calc(var(--peak-value) * var(--bar-width) * .1px);
+  width: calc(var(--peak-value) * var(--bar-width) * 0.1px);
   margin-top: calc(var(--bar-y-spread) * 1px);
   height: calc(var(--calculated-bar-height));
   background: var(--primary-color);
-  opacity: calc((var(--average-value-difference) / 500 + var(--peak-value)/1000));
+  opacity: calc(
+    (var(--average-value-difference) / 500 + var(--peak-value) / 1000)
+  );
   list-style: none;
   position: relative;
 }
 
-label{
+label {
   line-height: 1.25em;
   display: block;
 }
 
-label input, label select{
+label input,
+label select {
   display: block;
   width: 90%;
   margin: auto;
 }
 
-label span{
+label span {
   display: block;
 }
 
-label input[type="range"], label .range-input{
+label input[type="range"],
+label .range-input {
   vertical-align: middle;
   display: inline-block;
   text-align: right;
 }
 
-label input[type="range"]{
+label input[type="range"] {
   width: 65%;
   margin-left: 5%;
 }
 
-label .range-input{
+label .range-input {
   width: 20%;
   margin-right: 5%;
   float: right;
 }
 
-label input[type="checkbox"]{
+label input[type="checkbox"] {
   display: inline-block;
   width: 15px;
   height: 15px;

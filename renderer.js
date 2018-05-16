@@ -71,17 +71,28 @@ function setOptions(newOptions) {
     newOptions["FFT Size"] != options["FFT Size"]
   ) {
     if (awdedFFT) {
+      console.log("killing awded");
       awdedFFT.kill("SIGINT");
     }
+
     awdedFFT = cp.spawn(
       path
         .join(app.getAppPath(), "AwdedFFT.exe")
         .replace("app.asar", "app.asar.unpacked"),
       [
         Math.round(1000 / newOptions["Update Fps"]),
-        (newOptions["FFT Size"], "10").toString()
+        parseInt(newOptions["FFT Size"], "10").toString(),
+        "12"
       ]
     );
+
+    awdedFFT.stdout.on("data", data => {
+      try {
+        ffts.list = JSON.parse(data);
+      } catch (e) {
+        console.log(e);
+      }
+    });
   }
 
   document
@@ -188,11 +199,4 @@ class Fft {
 
 function initialize(options) {
   setOptions(options);
-  awdedFFT.stdout.on("data", data => {
-    try {
-      ffts.list = JSON.parse(data);
-    } catch (e) {
-      console.log(e);
-    }
-  });
 }

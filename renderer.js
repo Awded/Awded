@@ -64,7 +64,7 @@ function setOptions(newOptions) {
   let selectedThemePath = path.join(themesPath, newOptions["Theme"]);
   let body = document.querySelector("body");
   let head = document.querySelector("head");
-  //if fft or fps different, restart awdedFft!
+
   if (
     !awdedFFT ||
     newOptions["Update Fps"] != options["Update Fps"] ||

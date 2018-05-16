@@ -46,12 +46,12 @@ ul {
   transform-origin: center;
   width: 50%;
   position: relative;
-  top: calc(var(--bar-offset-y) * 1%);
+  top: calc(var(--bar-offset-y) * 1px);
 }
 
 #leftbars {
   margin-left: 0;
-  left: calc(var(--bar-x-spread) * 1% + var(--bar-offset-x) * -1%);
+  left: calc(var(--bar-x-spread) * 1px + var(--bar-offset-x) * -1px);
   transform: rotate(calc(var(--bar-rotation) * 1deg)) scaleY(var(--bar-inverse));
 }
 
@@ -61,7 +61,7 @@ ul {
 
 #rightbars {
   margin-right: 0;
-  right: calc(var(--bar-x-spread) * 1% + var(--bar-offset-x) * 1%);
+  right: calc(var(--bar-x-spread) * 1px + var(--bar-offset-x) * 1px);
   transform: rotate(calc(var(--bar-rotation) * -1deg))
     scaleY(var(--bar-inverse));
   direction: rtl;

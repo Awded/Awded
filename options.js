@@ -67,6 +67,9 @@ function reinitialize() {
       inputEl.addEventListener("input", x => {
         ipcRenderer.send("options", getOptions());
       });
+      inputEl.addEventListener("change", x => {
+        ipcRenderer.send("options", getOptions());
+      });
       if (!inputType) {
         return false;
       }
@@ -137,12 +140,8 @@ function reinitialize() {
     buttonGroup.id = "optionsButtonGroup";
     buttonGroup.appendChild(save);
     buttonGroup.appendChild(revert);
-    save.addEventListener("click", x => {
-      saveChanges();
-    });
-    revert.addEventListener("click", x => {
-      reinitialize();
-    });
+    save.addEventListener("click", saveChanges);
+    revert.addEventListener("click", reinitialize);
     optionsEl.parentNode.insertBefore(buttonGroup, optionsEl.nextSibling);
   }
   ipcRenderer.send("options", getOptions());
@@ -170,7 +169,7 @@ function getOptions() {
       option.toLowerCase().replace(/\s+/gi, "-")
     );
     outboundOptions[option] =
-      option == "Bar Inverse" ? optionEl.checked : optionEl.value;
+      option == "Bar Inverse" ? !!optionEl.checked : optionEl.value;
   }
 
   return outboundOptions;

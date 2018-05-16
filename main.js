@@ -81,7 +81,14 @@ function createWindow() {
   );
 
   mainWindow.on("closed", function() {
+    if (mainWindow) {
+      mainWindow.close();
+    }
+    if (optionsWindow) {
+      optionsWindow.close();
+    }
     mainWindow = null;
+    optionsWindow = null;
     app.quit();
   });
 }

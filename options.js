@@ -1,7 +1,6 @@
 const { ipcRenderer } = require("electron");
 
 const fs = require("fs");
-const _ = require("underscore");
 const path = require("path");
 
 const defaultOptions = require("./json/defaultOptions.json");

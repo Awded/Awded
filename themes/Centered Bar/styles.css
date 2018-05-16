@@ -1,22 +1,24 @@
-.bars li{
+.bars li {
   border-radius: var(--calculated-bar-height);
 }
 
-#leftbars{
+#leftbars {
   display: none;
 }
-body .bars{
+body .bars {
   grid-template-columns: 100%;
 }
-body #rightbars{
+body #rightbars {
   width: 100%;
   right: calc(var(--bar-offset-x) * 1%);
 }
 
-body #rightbars li{
+body #rightbars li {
   margin: auto;
   max-width: calc(var(--bar-width) * 30px);
-  width: calc((var(--peak-value) + var(--other-peak-value)) * .1px * var(--bar-width));
+  width: calc(
+    (var(--peak-value) + var(--other-peak-value)) * 0.1px * var(--bar-width)
+  );
   right: calc(var(--average-value-difference) * 5px);
-  opacity: calc((var(--peak-value) + var(--other-peak-value)) / 750 + .1);
+  opacity: calc((var(--peak-value) + var(--other-peak-value)) / 750 + 0.1);
 }

@@ -136,14 +136,15 @@ function setOptions(newOptions) {
 
 class Fft {
   constructor(value, i, parent) {
-    this._pastValues = [0, 0, 0, 0, 0];
-    this._value = value;
+    this._pastValues = [0];
+    this._value = value || 0;
     this._index = i;
     this._peak = 0;
     this._parent = parent;
     this._otherChannel = false;
     this.el = document.createElement("li");
     this.el.style.setProperty("--position", this._index % quarterFftSize);
+    this.setProperties();
     parent.appendChild(this.el);
     return this;
   }
@@ -165,17 +166,7 @@ class Fft {
         this._otherChannel = ffts.list[this._index + quarterFftSize];
       }
     }
-    this.el.style.setProperty("--value", this._value);
-    this.el.style.setProperty("--average-value", this.averageValue);
-    this.el.style.setProperty("--peak-value", this.peak);
-    if (this._otherChannel) {
-      this.el.style.setProperty("--other-value", this._otherChannel._value);
-      this.el.style.setProperty(
-        "--other-average-value",
-        this._otherChannel.averageValue
-      );
-      this.el.style.setProperty("--other-peak-value", this._otherChannel._peak);
-    }
+    this.setProperties();
     return this._value;
   }
 
@@ -194,6 +185,20 @@ class Fft {
       this._pastValues.reduce((t, v) => t + v) / this._pastValues.length,
       0.0001
     );
+  }
+
+  setProperties() {
+    this.el.style.setProperty("--value", this._value);
+    this.el.style.setProperty("--average-value", this.averageValue);
+    this.el.style.setProperty("--peak-value", this.peak);
+    if (this._otherChannel) {
+      this.el.style.setProperty("--other-value", this._otherChannel._value);
+      this.el.style.setProperty(
+        "--other-average-value",
+        this._otherChannel.averageValue
+      );
+      this.el.style.setProperty("--other-peak-value", this._otherChannel._peak);
+    }
   }
 }
 

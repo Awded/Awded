@@ -120,6 +120,12 @@ function reinitialize() {
         });
         rangeNumberEl.addEventListener("input", x => {
           inputEl.value = rangeNumberEl.value;
+          inputEl.dispatchEvent(
+            new Event("input", {
+              bubbles: true,
+              cancelable: true
+            })
+          );
         });
         inputGroup.appendChild(rangeNumberEl);
       }

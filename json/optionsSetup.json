@@ -43,7 +43,7 @@
       {
         "name": "Bar Height",
         "type": "range",
-        "values": { "min": 0, "max": 100 }
+        "values": { "min": 0, "max": 200 }
       },
       {
         "name": "Average Length",
@@ -58,22 +58,22 @@
       {
         "name": "Bar Y Spread",
         "type": "range",
-        "values": { "min": -100, "max": 100, "step": 5 }
+        "values": { "min": -1000, "max": 1000, "step": 5 }
       },
       {
         "name": "Bar X Spread",
         "type": "range",
-        "values": { "min": 0, "max": 100 }
+        "values": { "min": -1000, "max": 1000 }
       },
       {
         "name": "Bar Offset X",
         "type": "range",
-        "values": { "min": -100, "max": 100, "step": 5 }
+        "values": { "min": -1000, "max": 1000, "step": 5 }
       },
       {
         "name": "Bar Offset Y",
         "type": "range",
-        "values": { "min": -100, "max": 100 }
+        "values": { "min": -1000, "max": 1000 }
       },
       { "name": "Bar Inverse", "type": "checkbox" }
     ]

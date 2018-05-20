@@ -42,7 +42,7 @@ function openOptions() {
 
   optionsWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, "options.html"),
+      pathname: path.join(__dirname, "src/options.html"),
       protocol: "file:",
       slashes: true
     })
@@ -74,11 +74,13 @@ function createWindow() {
 
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, "index.html"),
+      pathname: path.join(__dirname, "src/index.html"),
       protocol: "file:",
       slashes: true
     })
   );
+
+  mainWindow.openDevTools({ detach: true });
 
   mainWindow.on("closed", function() {
     if (mainWindow) {

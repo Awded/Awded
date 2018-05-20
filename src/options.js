@@ -4,10 +4,10 @@ const fs = require("fs");
 const path = require("path");
 
 const defaultOptions = require("./json/defaultOptions.json");
-const defaultOptionsPath = path.join(__dirname, "/json/defaultOptions.json");
-const optionsSetupPath = path.join(__dirname, "/json/optionsSetup.json");
-const optionsPath = path.join(__dirname, "/json/options.json");
-const themesPath = path.join(__dirname, "/themes/");
+const defaultOptionsPath = path.join(__dirname, "../json/defaultOptions.json");
+const optionsSetupPath = path.join(__dirname, "../json/optionsSetup.json");
+const optionsPath = path.join(__dirname, "../json/options.json");
+const themesPath = path.join(__dirname, "../themes/");
 
 const optionsSetup = require(optionsSetupPath);
 

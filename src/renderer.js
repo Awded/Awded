@@ -105,6 +105,8 @@ function setOptions(newOptions) {
 
     themeScript.id = "themeScript";
     themeScript.src = "../themes/" + newOptions["Theme"] + "/main.js";
+    //not appending scripts at this time until I can figure out the (in)security
+
     head.appendChild(themeStyles);
   } else if (newOptions["Theme"] == "Default") {
     let oldStyle = document.querySelector("#themeStyle");

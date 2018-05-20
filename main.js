@@ -20,6 +20,7 @@ const icon = nativeImage.createFromPath(path.join(__dirname, "icon.png"));
 const defaultOptionsPath = path.join(__dirname, "/json/defaultOptions.json");
 const optionsPath = path.join(__dirname, "/json/options.json");
 const themesPath = path.join(__dirname, "/themes/");
+const debug = process.argv[2] == "debug";
 
 function openOptions() {
   if (optionsWindow) {
@@ -42,7 +43,7 @@ function openOptions() {
 
   optionsWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, "options.html"),
+      pathname: path.join(__dirname, "src/options.html"),
       protocol: "file:",
       slashes: true
     })
@@ -55,6 +56,10 @@ function openOptions() {
   optionsWindow.on("closed", function() {
     optionsWindow = null;
   });
+
+  if (debug) {
+    optionsWindow.openDevTools({ detach: true });
+  }
 }
 
 function createWindow() {
@@ -74,29 +79,27 @@ function createWindow() {
 
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, "index.html"),
+      pathname: path.join(__dirname, "src/index.html"),
       protocol: "file:",
       slashes: true
     })
   );
 
-  mainWindow.on("closed", function() {
-    if (mainWindow) {
-      mainWindow.close();
-    }
-    if (optionsWindow) {
-      optionsWindow.close();
-    }
-    mainWindow = null;
-    optionsWindow = null;
-    app.quit();
-  });
+  mainWindow.on("closed", quit);
+
+  if (debug) {
+    mainWindow.openDevTools({ detach: true });
+  }
 }
 
 if (!fs.existsSync(optionsPath)) {
   fs
     .createReadStream(defaultOptionsPath)
     .pipe(fs.createWriteStream(optionsPath));
+}
+
+function quit() {
+  app.quit();
 }
 
 function reinitialize() {
@@ -130,7 +133,7 @@ app.on("ready", function() {
       label: "Quit",
       type: "normal",
       click() {
-        return app.quit();
+        return quit();
       }
     }
   ]);
@@ -139,9 +142,7 @@ app.on("ready", function() {
   createWindow();
 });
 
-app.on("window-all-closed", function() {
-  app.quit();
-});
+app.on("window-all-closed", quit);
 
 app.on("activate", function() {
   if (mainWindow === null) {

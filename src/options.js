@@ -3,11 +3,11 @@ const { ipcRenderer } = require("electron");
 const fs = require("fs");
 const path = require("path");
 
-const defaultOptions = require("./json/defaultOptions.json");
-const defaultOptionsPath = path.join(__dirname, "/json/defaultOptions.json");
-const optionsSetupPath = path.join(__dirname, "/json/optionsSetup.json");
-const optionsPath = path.join(__dirname, "/json/options.json");
-const themesPath = path.join(__dirname, "/themes/");
+const defaultOptions = require("../json/defaultOptions.json");
+const defaultOptionsPath = path.join(__dirname, "../json/defaultOptions.json");
+const optionsSetupPath = path.join(__dirname, "../json/optionsSetup.json");
+const optionsPath = path.join(__dirname, "../json/options.json");
+const themesPath = path.join(__dirname, "../themes/");
 
 const optionsSetup = require(optionsSetupPath);
 
@@ -120,6 +120,12 @@ function reinitialize() {
         });
         rangeNumberEl.addEventListener("input", x => {
           inputEl.value = rangeNumberEl.value;
+          inputEl.dispatchEvent(
+            new Event("input", {
+              bubbles: true,
+              cancelable: true
+            })
+          );
         });
         inputGroup.appendChild(rangeNumberEl);
       }
@@ -146,8 +152,6 @@ function reinitialize() {
   }
   ipcRenderer.send("options", getOptions());
 }
-
-app;
 
 function saveChanges() {
   let outboundOptions = getOptions();

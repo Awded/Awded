@@ -11,6 +11,24 @@ ul {
   padding: 0;
 }
 
+summary {
+  user-select: none;
+  cursor: pointer;
+}
+
+:focus {
+  outline: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper,
+input[type="color" i] {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+
 #options {
   overflow-y: scroll;
   height: 100%;

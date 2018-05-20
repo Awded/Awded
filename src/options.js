@@ -3,7 +3,7 @@ const { ipcRenderer } = require("electron");
 const fs = require("fs");
 const path = require("path");
 
-const defaultOptions = require("./json/defaultOptions.json");
+const defaultOptions = require("../json/defaultOptions.json");
 const defaultOptionsPath = path.join(__dirname, "../json/defaultOptions.json");
 const optionsSetupPath = path.join(__dirname, "../json/optionsSetup.json");
 const optionsPath = path.join(__dirname, "../json/options.json");
@@ -152,8 +152,6 @@ function reinitialize() {
   }
   ipcRenderer.send("options", getOptions());
 }
-
-app;
 
 function saveChanges() {
   let outboundOptions = getOptions();

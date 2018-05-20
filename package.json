@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . Awded --overwrite --icon=icon.ico"
+    "build": "electron-packager . Awded --overwrite --icon=icon.ico",
+    "debug": "electron . debug"
   },
   "author": "Awded",
   "license": "MIT",

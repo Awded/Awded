@@ -99,8 +99,6 @@ if (!fs.existsSync(optionsPath)) {
 }
 
 function quit() {
-  mainWindow = null;
-  optionsWindow = null;
   app.quit();
 }
 

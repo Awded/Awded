@@ -94,16 +94,23 @@ function setOptions(newOptions) {
     let themeStyles = document.createElement("link");
     themeStyles.rel = "stylesheet";
     themeStyles.type = "text/css";
-    themeStyles.href = "./themes/" + newOptions["Theme"] + "/styles.css";
+    themeStyles.href = "../themes/" + newOptions["Theme"] + "/styles.css";
+    themeStyles.id = "themeStyle";
 
     let themeScript = document.createElement("script");
     let oldStyle = document.querySelector("#themeStyle");
     if (oldStyle) {
       oldStyle.remove();
     }
-    themeScript.id = "themeStyle";
-    themeScript.src = "./themes/" + newOptions["Theme"] + "/main.js";
+
+    themeScript.id = "themeScript";
+    themeScript.src = "../themes/" + newOptions["Theme"] + "/main.js";
     head.appendChild(themeStyles);
+  } else if (newOptions["Theme"] == "Default") {
+    let oldStyle = document.querySelector("#themeStyle");
+    if (oldStyle) {
+      oldStyle.remove();
+    }
   }
   options = newOptions;
 }

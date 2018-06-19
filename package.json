@@ -1,0 +1,29 @@
+{
+  "name": "Awded",
+  "version": "0.2.0",
+  "description": "d/Deaf & HoH audio visualizer",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Awded/Awded.git"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . Awded --overwrite --icon=icon.ico",
+    "debug": "electron . debug"
+  },
+  "author": "Awded",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^1.8.6",
+    "packager": "0.0.4"
+  },
+  "build": {
+    "asarUnpack": [
+      "*/AwdedFFT.exe",
+      "/themes/*",
+      "/json/*"
+    ]
+  },
+  "dependencies": {}
+}

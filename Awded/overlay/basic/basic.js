@@ -1,12 +1,22 @@
 const electron = require("electron");
-const { ipcMain, app, Tray, Menu, BrowserWindow, nativeImage } = electron;
-const FFT = require("../../FFT/FFT.js");
+const {
+  ipcMain,
+  app,
+  Tray,
+  Menu,
+  BrowserWindow,
+  nativeImage,
+  ipcRenderer
+} = electron;
 
-ipcRenderer.on("options", (e, v) => {
-  setOptions(v);
-});
+const paths = require("../../paths.js");
+const FFT = require(paths.FFT);
+
+const body = document.querySelector("body");
+const head = document.querySelector("head");
 
 const setOptions = options => {
+  FFT.setOptions(options);
   document
     .querySelector(".bars")
     .style.setProperty("--fftSize", options["FFT Size"]);
@@ -30,7 +40,7 @@ const setOptions = options => {
     let themeStyles = document.createElement("link");
     themeStyles.rel = "stylesheet";
     themeStyles.type = "text/css";
-    themeStyles.href = "../themes/" + options["Theme"] + "/styles.css";
+    themeStyles.href = "../../themes/" + options["Theme"] + "/styles.css";
     themeStyles.id = "themeStyle";
 
     let themeScript = document.createElement("script");
@@ -39,7 +49,7 @@ const setOptions = options => {
     }
 
     themeScript.id = "themeScript";
-    themeScript.src = "../themes/" + options["Theme"] + "/main.js";
+    themeScript.src = "../../themes/" + options["Theme"] + "/main.js";
     //not adding script untill I can look into security of it
     head.appendChild(themeStyles);
   } else {
@@ -48,3 +58,13 @@ const setOptions = options => {
     }
   }
 };
+
+setOptions(require(paths.options));
+
+ipcRenderer.on("setOptions", (e, v) => {
+  setOptions(v);
+});
+
+ipcRenderer.on("FFTData", (e, v) => {
+  FFT.setList(v);
+});

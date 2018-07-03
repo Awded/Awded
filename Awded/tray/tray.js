@@ -1,6 +1,8 @@
-const electron = require("electron");
-const { ipcMain, app, Tray, Menu } = electron;
+const { app, Tray, Menu, nativeImage } = require("electron");
+const paths = require("../paths.js");
 let tray;
+
+const icon = nativeImage.createFromPath(paths.icon);
 
 app.on("ready", function() {
   tray = new Tray(icon);
@@ -9,14 +11,14 @@ app.on("ready", function() {
       label: "Reinitialize",
       type: "normal",
       click() {
-        return reinitialize();
+        return app.emit("initialize", "tray");
       }
     },
     {
       label: "Options",
       type: "normal",
       click() {
-        return openOptions();
+        return app.emit("createOptionsWindow", "tray");
       }
     },
     { label: "", type: "separator" },
@@ -24,7 +26,7 @@ app.on("ready", function() {
       label: "Quit",
       type: "normal",
       click() {
-        return quit();
+        return app.emit("quit", "tray");
       }
     }
   ]);

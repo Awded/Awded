@@ -1,1 +1,1 @@
-module.exports = require("basic/basic.js");
+module.exports = require("./basic/basic.js");

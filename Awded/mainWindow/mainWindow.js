@@ -1,6 +1,8 @@
-const { BrowserWindow } = require("electron");
+const { BrowserWindow, nativeImage } = require("electron");
+const paths = require("../paths.js");
+const icon = nativeImage.createFromPath(paths.icon);
 
-module.exports = BrowserWindow({
+module.exports = {
   title: "Awded",
   fullscreen: true,
   alwaysOnTop: true,
@@ -9,4 +11,4 @@ module.exports = BrowserWindow({
   frame: false,
   thickFrame: false,
   icon: icon
-});
+};

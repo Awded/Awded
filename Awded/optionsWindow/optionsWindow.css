@@ -1,0 +1,85 @@
+:root,
+body {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+:focus {
+  outline: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper,
+input[type="color" i] {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+}
+
+summary {
+  user-select: none;
+  cursor: pointer;
+}
+
+#options {
+  overflow-y: scroll;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  padding-bottom: 25px;
+}
+
+#optionsButtonGroup {
+  position: absolute;
+  right: 20px;
+  bottom: 2px;
+}
+
+#optionsButtonGroup #save {
+  margin-right: 10px;
+}
+
+label {
+  line-height: 1.25em;
+  display: block;
+}
+
+label input,
+label select {
+  display: block;
+  width: 90%;
+  margin: auto;
+}
+
+label span {
+  display: block;
+}
+
+label input[type="range"],
+label .range-input {
+  vertical-align: middle;
+  display: inline-block;
+  text-align: right;
+}
+
+label input[type="range"] {
+  width: 65%;
+  margin-left: 5%;
+}
+
+label .range-input {
+  width: 20%;
+  margin-right: 5%;
+  float: right;
+}
+
+label input[type="checkbox"] {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-left: 5%;
+}

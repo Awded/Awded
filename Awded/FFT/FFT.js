@@ -75,33 +75,33 @@ class FFT {
   clear() {
     FFTList = [];
   }
-
-  setOptions(newOptions) {
-    options = newOptions;
-  }
-
-  setList(newFFTs) {
-    if (Array.isArray(newFFTs)) {
-      if (FFTList.length == newFFTs.length) {
-        newFFTs.forEach((v, i) => {
-          FFTList[i].value = Math.log10(v) * 100;
-        });
-      } else {
-        FFTList = [];
-        while (left.firstChild) {
-          left.removeChild(left.firstChild);
-        }
-        while (right.firstChild) {
-          right.removeChild(right.firstChild);
-        }
-        FFTList = newFFTs.map((v, i) => {
-          return new FFT(v, i, i < options["FFT Size"] / 4 ? left : right);
-        });
-      }
-    } else {
-      throw new TypeError("FFT list must be an array.");
-    }
-  }
 }
+
+FFT.setList = newFFTs => {
+  if (Array.isArray(newFFTs)) {
+    if (FFTList.length == newFFTs.length) {
+      newFFTs.forEach((v, i) => {
+        FFTList[i].value = (v + 100) * 0.1; //Math.log10(v) * 100;
+      });
+    } else {
+      FFTList = [];
+      while (left.firstChild) {
+        left.removeChild(left.firstChild);
+      }
+      while (right.firstChild) {
+        right.removeChild(right.firstChild);
+      }
+      FFTList = newFFTs.map((v, i) => {
+        return new FFT(v, i, i < options["FFT Size"] / 4 ? left : right);
+      });
+    }
+  } else {
+    throw new TypeError("FFT list must be an array.");
+  }
+};
+
+FFT.setOptions = newOptions => {
+  options = newOptions;
+};
 
 module.exports = FFT;

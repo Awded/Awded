@@ -1,42 +1,19 @@
-const { ipcRenderer } = require("electron");
+const { ipcRenderer, remote } = require("electron");
 
 const fs = require("fs");
-const path = require("path");
+const paths = require("../paths.js");
 
-const defaultOptions = require("../json/defaultOptions.json");
-const defaultOptionsPath = path.join(__dirname, "../json/defaultOptions.json");
-const optionsSetupPath = path.join(__dirname, "../json/optionsSetup.json");
-const optionsPath = path.join(__dirname, "../json/options.json");
-const themesPath = path.join(__dirname, "../themes/");
+const optionsSetup = require(paths.optionsSetup);
+const defaultOptions = require(paths.defaultOptions);
+const inputTypes = require(paths.inputTypes);
 
-const optionsSetup = require(optionsSetupPath);
+const currentWindow = remote.getCurrentWindow();
 
-const inputTypes = {
-  number: {
-    tag: "input",
-    type: "number"
-  },
-  range: {
-    tag: "input",
-    type: "range"
-  },
-  checkbox: {
-    tag: "input",
-    type: "checkbox"
-  },
-  color: {
-    tag: "input",
-    type: "color"
-  },
-  select: {
-    tag: "select",
-    type: null
-  }
-};
+let options = require(paths.options);
 
 const optionsFunctions = {
   loadThemes() {
-    let themes = fs.readdirSync(themesPath).filter(x => {
+    let themes = fs.readdirSync(paths.themes).filter(x => {
       return x.indexOf(".") == -1;
     });
     themes.push("Default");
@@ -46,8 +23,11 @@ const optionsFunctions = {
 
 reinitialize();
 
+currentWindow.on("close", () => {
+  revertChanges();
+});
+
 function reinitialize() {
-  let options = require(optionsPath);
   let optionsEl = document.querySelector("#options");
   while (optionsEl.firstChild) {
     optionsEl.removeChild(optionsEl.firstChild);
@@ -65,10 +45,10 @@ function reinitialize() {
       let labelText = document.createTextNode(input.name);
       inputEl.id = input.name.toLowerCase().replace(/\s+/gi, "-");
       inputEl.addEventListener("input", x => {
-        ipcRenderer.send("options", getOptions());
+        ipcRenderer.send("setOptions", getOptions());
       });
       inputEl.addEventListener("change", x => {
-        ipcRenderer.send("options", getOptions());
+        ipcRenderer.send("setOptions", getOptions());
       });
       if (!inputType) {
         return false;
@@ -105,6 +85,7 @@ function reinitialize() {
       }
       if (options && options[input.name]) {
         inputEl.value = options[input.name];
+        if (input.type == "checkbox") inputEl.checked = options[input.name];
       }
       label.appendChild(labelText);
       inputGroup.appendChild(label);
@@ -147,23 +128,43 @@ function reinitialize() {
     buttonGroup.appendChild(save);
     buttonGroup.appendChild(revert);
     save.addEventListener("click", saveChanges);
-    revert.addEventListener("click", reinitialize);
+    revert.addEventListener("click", revertChanges);
     optionsEl.parentNode.insertBefore(buttonGroup, optionsEl.nextSibling);
   }
-  ipcRenderer.send("options", getOptions());
+}
+
+function setInputValues() {
+  optionsSetup.forEach(option => {
+    option.inputs.forEach(input => {
+      let inputEl = document.querySelector(
+        "#" + input.name.toLowerCase().replace(/\s+/gi, "-")
+      );
+      let rangeNumberEl = document.querySelector("#" + inputEl.id + "-input");
+      if (options && options[input.name]) {
+        inputEl.value = options[input.name];
+        if (input.type == "checkbox") inputEl.checked = options[input.name];
+      }
+      if (rangeNumberEl) rangeNumberEl.value = inputEl.value;
+    });
+  });
 }
 
 function saveChanges() {
-  let outboundOptions = getOptions();
+  options = getOptions();
 
-  let jsonOptions = JSON.stringify(outboundOptions);
+  let jsonOptions = JSON.stringify(options);
   if (jsonOptions) {
-    fs.writeFile(optionsPath, jsonOptions, e => {
+    fs.writeFile(paths.options, jsonOptions, e => {
       if (e) logError(e);
     });
   } else {
     logError("Failed to save options.");
   }
+}
+
+function revertChanges() {
+  setInputValues();
+  ipcRenderer.send("setOptions", options);
 }
 
 function getOptions() {
@@ -175,17 +176,17 @@ function getOptions() {
     outboundOptions[option] =
       option == "Bar Inverse" ? !!optionEl.checked : optionEl.value;
   }
-
+  console.log(outboundOptions);
   return outboundOptions;
 }
 
-fs.readFile(optionsPath, (err, data) => {
+fs.readFile(paths.options, (err, data) => {
   try {
     JSON.parse(data);
   } catch (e) {
     logError(e);
     fs.unlink();
-    fs.writeFile(optionsPath, JSON.stringify(defaultOptions));
+    fs.writeFile(paths.options, JSON.stringify(defaultOptions));
   }
 });
 

@@ -6,12 +6,12 @@ Visual overlay for deaf and hard of hearing players to visualize direction of au
 
 | Option Name     | Variable               | Description                                                                                  |
 | --------------- | ---------------------- | -------------------------------------------------------------------------------------------- |
-| N/A             | ---value               | "Loudness" of this frequency band                                                            |
+| N/A             | ---value               | "Loudness" of this frequency band.                                                           |
 | N/A             | ---average-value       | Running average "loudness" of the frequency band, samples default to 5. Editable in options. |
 | N/A             | ---peak-value          | Largest recent value, decay is set by options.                                               |
-| N/A             | ---other-value         | Value of same frequency on opposite channel                                                  |
-| N/A             | ---other-average-value | Average value of same frequency on opposite channel                                          |
-| N/A             | ---other-peak-value    | Peak value of same frequency on opposite channel                                             |
+| N/A             | ---other-value         | Value of same frequency on opposite channel.                                                 |
+| N/A             | ---other-average-value | Average value of same frequency on opposite channel.                                         |
+| N/A             | ---other-peak-value    | Peak value of same frequency on opposite channel.                                            |
 |                 |                        |                                                                                              |
 | FFT Size        | ---fftSize             | FFT Size, identical to how many bars each channel will have times 2.                         |
 | Theme           | ---theme               | String of currently loaded theme.                                                            |
